@@ -23,5 +23,7 @@ public class Email implements Serializable {
     private String subject;
     private String body;
     private String contentType;
+
+    @Enumerated(EnumType.STRING)
     private EmailStatus emailStatus;
 }

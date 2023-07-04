@@ -3,6 +3,7 @@ package br.com.compassuol.pb.challenge.msnotification.controller;
 import br.com.compassuol.pb.challenge.msnotification.dto.EmailDto;
 import br.com.compassuol.pb.challenge.msnotification.entity.Email;
 import br.com.compassuol.pb.challenge.msnotification.service.EmailService;
+import br.com.compassuol.pb.challenge.msnotification.service.impl.EmailServiceImpl;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.Data;
@@ -21,7 +22,7 @@ import java.io.Serializable;
 public class EmailController {
 
     @Autowired
-    EmailService emailService;
+    EmailServiceImpl emailService;
 
     @PostMapping("send-email")
     public ResponseEntity<Email> sendEmail(@RequestBody @Valid EmailDto emailDto){
