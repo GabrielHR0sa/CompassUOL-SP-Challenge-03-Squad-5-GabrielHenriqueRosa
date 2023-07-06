@@ -1,7 +1,9 @@
 package br.com.compassuol.pb.challenge.msproducts.service.impl;
 
 import br.com.compassuol.pb.challenge.msproducts.dto.LoginDto;
+import br.com.compassuol.pb.challenge.msproducts.dto.ProductsDto;
 import br.com.compassuol.pb.challenge.msproducts.dto.RegisterDto;
+import br.com.compassuol.pb.challenge.msproducts.entity.Products;
 import br.com.compassuol.pb.challenge.msproducts.entity.Role;
 import br.com.compassuol.pb.challenge.msproducts.entity.User;
 import br.com.compassuol.pb.challenge.msproducts.exception.ApplicationException;
@@ -83,5 +85,38 @@ public class AuthServiceImpl implements AuthService {
         }
         userRepository.save(user);
         return "User registered successfully!.";
+    }
+
+    @Override
+    public RegisterDto getUserById(long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        return mapToDTO(user);
+    }
+
+    @Override
+    public RegisterDto updateUser(RegisterDto registerDto, long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+
+        user.setFirstName(registerDto.getFirstName());
+        user.setLastName(registerDto.getLastName());
+        user.setEmail(registerDto.getEmail());
+        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+       
+
+        User updatedUser = userRepository.save(user);
+        return mapToDTO(updatedUser);
+    }
+
+    private RegisterDto mapToDTO(User user){
+        RegisterDto registerDto = new RegisterDto();
+
+        registerDto.setId(user.getId());
+        registerDto.setFirstName(user.getFirstName());
+        registerDto.setLastName(user.getLastName());
+        registerDto.setEmail(user.getEmail());
+        registerDto.setPassword(user.getPassword());
+        registerDto.setRoles(user.getRoles());
+
+        return registerDto;
     }
 }

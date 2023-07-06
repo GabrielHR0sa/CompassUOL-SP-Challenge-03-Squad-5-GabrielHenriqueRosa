@@ -6,10 +6,8 @@ import br.com.compassuol.pb.challenge.msproducts.dto.RegisterDto;
 import br.com.compassuol.pb.challenge.msproducts.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -35,5 +33,19 @@ public class AuthController {
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto){
         String response = authService.register(registerDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/{id}")
+    public ResponseEntity<RegisterDto> getUserById(@PathVariable(name = "id")long id){
+        return ResponseEntity.ok(authService.getUserById(id));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<RegisterDto> updateUser(@RequestBody RegisterDto registerDto, @PathVariable(name = "id") long id){
+        RegisterDto userResponse = authService.updateUser(registerDto, id);
+
+        return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 }

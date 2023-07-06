@@ -8,4 +8,8 @@ public interface AuthService {
     String login(LoginDto loginDto);
 
     String register(RegisterDto registerDto);
+
+    RegisterDto getUserById(long id);
+
+    RegisterDto updateUser(RegisterDto registerDto, long id);
 }
