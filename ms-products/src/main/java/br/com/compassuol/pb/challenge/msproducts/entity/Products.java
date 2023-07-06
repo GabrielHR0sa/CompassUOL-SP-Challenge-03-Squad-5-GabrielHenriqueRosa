@@ -42,6 +42,6 @@ public class Products {
 
     @Column(name = "price", nullable = false)
     @NotNull(message = "price can't be null or empty")
-    private int price;
+    private float price;
 
 }

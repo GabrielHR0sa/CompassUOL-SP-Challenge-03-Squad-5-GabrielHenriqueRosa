@@ -30,4 +30,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 webrequest.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
     }
+
+    @ExceptionHandler(ApplicationException.class)
+    public ResponseEntity<ErrorDetails> handleBlogAPIException(ApplicationException exception,
+                                                               WebRequest webRequest){
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
+                webRequest.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
 }

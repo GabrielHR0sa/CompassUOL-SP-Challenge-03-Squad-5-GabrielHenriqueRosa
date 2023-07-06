@@ -21,7 +21,7 @@ public class ProductsDto {
     private String description;
     private String name;
     private String imgURL;
-    private int price;
+    private float price;
 
 
 }
