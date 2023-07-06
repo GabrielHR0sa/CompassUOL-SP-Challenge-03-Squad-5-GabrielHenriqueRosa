@@ -9,6 +9,7 @@ import lombok.Setter;
 
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -43,5 +44,12 @@ public class Products {
     @Column(name = "price", nullable = false)
     @NotNull(message = "price can't be null or empty")
     private float price;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name= "product_category",
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "productId"),
+            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "categoryId")
+    )
+    private List<Category> categories;
 
 }

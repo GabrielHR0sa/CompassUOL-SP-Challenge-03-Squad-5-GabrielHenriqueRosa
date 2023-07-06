@@ -23,8 +23,9 @@ public class ProductsController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<ProductsDto> createProduct(@RequestBody ProductsDto productsDto){
-        return new ResponseEntity<>(productsService.createProduct(productsDto), HttpStatus.CREATED);
+    public ResponseEntity<String> createProduct(@RequestBody ProductsDto productsDto){
+        String response = productsService.createProduct(productsDto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

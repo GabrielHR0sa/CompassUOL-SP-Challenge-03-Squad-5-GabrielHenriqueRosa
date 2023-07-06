@@ -1,9 +1,7 @@
 package br.com.compassuol.pb.challenge.msproducts.service.impl;
 
 import br.com.compassuol.pb.challenge.msproducts.dto.LoginDto;
-import br.com.compassuol.pb.challenge.msproducts.dto.ProductsDto;
 import br.com.compassuol.pb.challenge.msproducts.dto.RegisterDto;
-import br.com.compassuol.pb.challenge.msproducts.entity.Products;
 import br.com.compassuol.pb.challenge.msproducts.entity.Role;
 import br.com.compassuol.pb.challenge.msproducts.entity.User;
 import br.com.compassuol.pb.challenge.msproducts.exception.ApplicationException;
@@ -11,7 +9,7 @@ import br.com.compassuol.pb.challenge.msproducts.exception.ResourceNotFoundExcep
 import br.com.compassuol.pb.challenge.msproducts.repository.RoleRepository;
 import br.com.compassuol.pb.challenge.msproducts.repository.UserRepository;
 import br.com.compassuol.pb.challenge.msproducts.security.JwtTokenProvider;
-import br.com.compassuol.pb.challenge.msproducts.service.AuthService;
+import br.com.compassuol.pb.challenge.msproducts.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +22,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class AuthServiceImpl implements AuthService {
+public class UserServiceImpl implements UserService {
     private AuthenticationManager authenticationManager;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
@@ -32,7 +30,7 @@ public class AuthServiceImpl implements AuthService {
     private JwtTokenProvider jwtTokenProvider;
 
 
-    public AuthServiceImpl(AuthenticationManager authenticationManager,
+    public UserServiceImpl(AuthenticationManager authenticationManager,
                            UserRepository userRepository,
                            RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder,
@@ -101,7 +99,7 @@ public class AuthServiceImpl implements AuthService {
         user.setLastName(registerDto.getLastName());
         user.setEmail(registerDto.getEmail());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-       
+
 
         User updatedUser = userRepository.save(user);
         return mapToDTO(updatedUser);

@@ -3,7 +3,7 @@ package br.com.compassuol.pb.challenge.msproducts.service;
 import br.com.compassuol.pb.challenge.msproducts.dto.LoginDto;
 import br.com.compassuol.pb.challenge.msproducts.dto.RegisterDto;
 
-public interface AuthService {
+public interface UserService {
 
     String login(LoginDto loginDto);
 

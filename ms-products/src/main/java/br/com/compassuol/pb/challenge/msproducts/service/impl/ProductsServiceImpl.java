@@ -2,8 +2,10 @@ package br.com.compassuol.pb.challenge.msproducts.service.impl;
 
 import br.com.compassuol.pb.challenge.msproducts.dto.ProductResponse;
 import br.com.compassuol.pb.challenge.msproducts.dto.ProductsDto;
+import br.com.compassuol.pb.challenge.msproducts.entity.Category;
 import br.com.compassuol.pb.challenge.msproducts.entity.Products;
 import br.com.compassuol.pb.challenge.msproducts.exception.ResourceNotFoundException;
+import br.com.compassuol.pb.challenge.msproducts.repository.CategoryRepository;
 import br.com.compassuol.pb.challenge.msproducts.repository.ProductsRepository;
 import br.com.compassuol.pb.challenge.msproducts.service.ProductsService;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,20 +23,35 @@ import java.util.stream.Collectors;
 public class ProductsServiceImpl implements ProductsService {
 
     private ProductsRepository productsRepository;
+    private CategoryRepository categoryRepository;
 
 
-    public ProductsServiceImpl(ProductsRepository productsRepository) {
+    public ProductsServiceImpl(ProductsRepository productsRepository, CategoryRepository categoryRepository) {
         this.productsRepository = productsRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
-    public ProductsDto createProduct(ProductsDto productsDto) {
+    public String createProduct(ProductsDto productsDto) {
 
-       Products products = mapToEntity(productsDto);
-       Products newProduct = productsRepository.save(products);
+        Products products = new Products();
 
-       ProductsDto productResponse = mapToDTO(newProduct);
-        return productResponse;
+        products.setDateT(productsDto.getDateT());
+        products.setDescription(productsDto.getDescription());
+        products.setName(productsDto.getName());
+        products.setImgURL(productsDto.getImgURL());
+        products.setPrice(productsDto.getPrice());
+
+       List<Category> categories = new ArrayList<>();
+       for(Category category : productsDto.getCategories()){
+           Long getId = category.getCategoryId();
+           Category getCategory = categoryRepository.findById(getId)
+                   .orElseThrow(() -> new ResourceNotFoundException("Category", "id", getId));
+           categories.add(getCategory);
+           products.setCategories(categories);
+       }
+       productsRepository.save(products);
+        return "Product created successfully";
     }
 
     @Override
@@ -98,18 +116,6 @@ public class ProductsServiceImpl implements ProductsService {
         productsDto.setPrice(products.getPrice());
 
         return productsDto;
-    }
-
-    private Products mapToEntity(ProductsDto productsDto){
-        Products products = new Products();
-
-        products.setDateT(productsDto.getDateT());
-        products.setDescription(productsDto.getDescription());
-        products.setName(productsDto.getName());
-        products.setImgURL(productsDto.getImgURL());
-        products.setPrice(productsDto.getPrice());
-
-        return products;
     }
 
 }
