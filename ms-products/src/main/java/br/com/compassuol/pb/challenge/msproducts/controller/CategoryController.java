@@ -19,7 +19,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    //Build add category Rest Api
+    
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoryDto> addCategory(@RequestBody CategoryDto categoryDto){
@@ -27,20 +27,20 @@ public class CategoryController {
         return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
     }
 
-    //Build Get category Rest Api
+   
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> getCategory(@PathVariable("id") Long categoryId){
         CategoryDto categoryDto = categoryService.getCategory(categoryId);
         return ResponseEntity.ok(categoryDto);
     }
 
-    //Build Get All category Rest Api
+    
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getCategories(){
         return ResponseEntity.ok(categoryService.getAllCategories());
     }
 
-    //Build Update category Rest Api
+    
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto categoryDto,
@@ -48,7 +48,7 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.updateCategory(categoryDto, categoryId));
     }
 
-    //Build Delete category Rest Api
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable("id") Long categoryId){
         categoryService.deleteCategory(categoryId);

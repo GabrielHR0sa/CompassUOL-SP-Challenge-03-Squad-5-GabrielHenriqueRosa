@@ -2,17 +2,15 @@ package br.com.compassuol.pb.challenge.msproducts.controller;
 
 import br.com.compassuol.pb.challenge.msproducts.dto.ProductResponse;
 import br.com.compassuol.pb.challenge.msproducts.dto.ProductsDto;
-import br.com.compassuol.pb.challenge.msproducts.entity.Products;
 import br.com.compassuol.pb.challenge.msproducts.service.ProductsService;
 import br.com.compassuol.pb.challenge.msproducts.utils.AppConstants;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/products")
