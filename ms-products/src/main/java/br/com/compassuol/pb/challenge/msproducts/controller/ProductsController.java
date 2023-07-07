@@ -19,18 +19,20 @@ public class ProductsController {
     @Autowired
     private ProductsService productsService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     @PostMapping
     public ResponseEntity<String> createProduct(@RequestBody ProductsDto productsDto){
         String response = productsService.createProduct(productsDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     @GetMapping("/{id}")
     public ResponseEntity<ProductsDto> getProductById(@PathVariable(name="id") long productId){
        return ResponseEntity.ok(productsService.getProductById(productId));
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     @GetMapping
     public ProductResponse getAllProducts(
             @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE, required = false)int page,
@@ -41,14 +43,14 @@ public class ProductsController {
         return productsService.getAllProducts(page, linesPerPage, orderBy, direction);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProductById(@PathVariable(name = "id") long productId){
         productsService.deleteProductById(productId);
         return new ResponseEntity<>("Product deleted successfully", HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     @PutMapping("/{id}")
     public ResponseEntity<ProductsDto> updateProduct(@RequestBody ProductsDto productsDto, @PathVariable(name = "id") long productId){
         ProductsDto productResponse = productsService.updateProduct(productsDto, productId);
