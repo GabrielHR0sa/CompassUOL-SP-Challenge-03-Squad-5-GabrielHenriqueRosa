@@ -10,6 +10,8 @@ import br.com.compassuol.pb.challenge.msproducts.repository.RoleRepository;
 import br.com.compassuol.pb.challenge.msproducts.repository.UserRepository;
 import br.com.compassuol.pb.challenge.msproducts.security.JwtTokenProvider;
 import br.com.compassuol.pb.challenge.msproducts.service.UserService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,18 +30,24 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     private JwtTokenProvider jwtTokenProvider;
+    private RabbitTemplate rabbitTemplate;
+
+    @Value("${spring.rabbitmq.queue}")
+    private String queue;
 
 
     public UserServiceImpl(AuthenticationManager authenticationManager,
                            UserRepository userRepository,
                            RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder,
-                           JwtTokenProvider jwtTokenProvider) {
+                           JwtTokenProvider jwtTokenProvider,
+                           RabbitTemplate rabbitTemplate) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.rabbitTemplate =  rabbitTemplate;
     }
 
     @Override
@@ -82,7 +90,7 @@ public class UserServiceImpl implements UserService {
             user.setRoles(roles);
         }
         userRepository.save(user);
-        return "User registered successfully!.";
+        return "User Registered successfully";
     }
 
     @Override
@@ -102,6 +110,7 @@ public class UserServiceImpl implements UserService {
 
 
         User updatedUser = userRepository.save(user);
+        rabbitTemplate.convertAndSend(queue, updatedUser);
         return mapToDTO(updatedUser);
     }
 

@@ -4,6 +4,7 @@ package br.com.compassuol.pb.challenge.msnotification.service.impl;
         import br.com.compassuol.pb.challenge.msnotification.entity.Email;
         import br.com.compassuol.pb.challenge.msnotification.repository.EmailRepository;
         import br.com.compassuol.pb.challenge.msnotification.service.EmailService;
+        import br.com.compassuol.pb.challenge.msproducts.dto.RegisterDto;
         import org.springframework.mail.MailException;
         import org.springframework.mail.SimpleMailMessage;
         import org.springframework.mail.javamail.JavaMailSender;
@@ -23,7 +24,17 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Transactional
-    public Email sendEmail(Email email) {
+    public void sendEmail(RegisterDto registerDto) {
+
+        Email email = new Email();
+
+        email.setFromName("Ms-users");
+        email.setFromEmail("rosahenriquegabriel@gmail.com");
+        email.setToEmail(registerDto.getEmail());
+        email.setReplyTo("gabriel.rosa.pb@compasso.com.br");
+        email.setSubject("Alteração no Cadastro do Usuário");
+        email.setBody("Seu cadastro foi atualizado com sucesso");
+        email.setContentType("Text");
 
         try{
             SimpleMailMessage message = new SimpleMailMessage();
@@ -38,8 +49,14 @@ public class EmailServiceImpl implements EmailService {
         }catch(MailException e){
             email.setEmailStatus(EmailStatus.ERROR);
         }finally {
-            return emailRepository.save(email);
+            emailRepository.save(email);
         }
     }
 }
 
+//    public ResponseEntity<Email> sendEmail(@RequestBody @Valid EmailDto emailDto){
+//        Email email = new Email();
+//        BeanUtils.copyProperties(emailDto, email);
+//        emailService.sendEmail(email);
+//        return new ResponseEntity<>(email, HttpStatus.CREATED);
+//    }

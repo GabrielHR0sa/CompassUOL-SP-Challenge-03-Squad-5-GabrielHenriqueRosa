@@ -1,8 +1,8 @@
 package br.com.compassuol.pb.challenge.msnotification.service;
 
-import br.com.compassuol.pb.challenge.msnotification.entity.Email;
+import br.com.compassuol.pb.challenge.msproducts.dto.RegisterDto;
 
 public interface EmailService {
 
-     Email sendEmail(Email email);
+     void sendEmail(RegisterDto registerDto);
 }
