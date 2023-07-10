@@ -1,7 +1,6 @@
 package br.com.compassuol.pb.challenge.msproducts.service;
 
 
-
 import br.com.compassuol.pb.challenge.msproducts.dto.CategoryDto;
 
 import java.util.List;
@@ -13,7 +12,7 @@ public interface CategoryService {
 
     List<CategoryDto> getAllCategories();
 
-    CategoryDto updateCategory(CategoryDto categoryDto,Long categoryId);
+    CategoryDto updateCategory(CategoryDto categoryDto, Long categoryId);
 
     void deleteCategory(Long categoryId);
 

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -24,7 +25,7 @@ class CategoryControllerTest {
     private CategoryDto categoryDto;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         categoryDto = new CategoryDto(1L, "Teste", "Teste");
         responseCategory = categoryService.getCategory(1L);
     }

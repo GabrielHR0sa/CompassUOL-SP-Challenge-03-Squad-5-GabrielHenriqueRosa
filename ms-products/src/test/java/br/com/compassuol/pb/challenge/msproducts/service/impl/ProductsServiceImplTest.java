@@ -1,6 +1,5 @@
 package br.com.compassuol.pb.challenge.msproducts.service.impl;
 
-import br.com.compassuol.pb.challenge.msproducts.dto.ProductResponse;
 import br.com.compassuol.pb.challenge.msproducts.dto.ProductsDto;
 import br.com.compassuol.pb.challenge.msproducts.entity.Category;
 import br.com.compassuol.pb.challenge.msproducts.entity.Products;
@@ -13,10 +12,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.*;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductsServiceImplTest {
@@ -50,7 +51,7 @@ class ProductsServiceImplTest {
     @Test
     void getProductById() {
         Products products = new Products(1L,
-                new Date(2023-07-07),
+                new Date(2023 - 07 - 07),
                 "Teste",
                 "Teste",
                 "Teste.png",
@@ -63,10 +64,12 @@ class ProductsServiceImplTest {
 
     @Test
     void getAllProducts() {
+
     }
 
     @Test
     void deleteProductById() {
+
     }
 
     @Test

@@ -11,7 +11,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
-
 @RestController
 @RequestMapping("/products")
 public class ProductsController {
@@ -21,38 +20,38 @@ public class ProductsController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     @PostMapping
-    public ResponseEntity<String> createProduct(@RequestBody ProductsDto productsDto){
+    public ResponseEntity<String> createProduct(@RequestBody ProductsDto productsDto) {
         String response = productsService.createProduct(productsDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     @GetMapping("/{id}")
-    public ResponseEntity<ProductsDto> getProductById(@PathVariable(name="id") long productId){
-       return ResponseEntity.ok(productsService.getProductById(productId));
+    public ResponseEntity<ProductsDto> getProductById(@PathVariable(name = "id") long productId) {
+        return ResponseEntity.ok(productsService.getProductById(productId));
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     @GetMapping
     public ProductResponse getAllProducts(
-            @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE, required = false)int page,
-            @RequestParam(value = "linesPerPage", defaultValue = AppConstants.DEFAULT_LINES_PER_PAGE, required = false)int linesPerPage,
-            @RequestParam(value = "orderBy", defaultValue = AppConstants.DEFAULT_ORDER_BY, required = false)String orderBy,
-            @RequestParam(value = "direction", defaultValue = AppConstants.DEFAULT_DIRECTION, required = false)String direction
-    ){
+            @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE, required = false) int page,
+            @RequestParam(value = "linesPerPage", defaultValue = AppConstants.DEFAULT_LINES_PER_PAGE, required = false) int linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = AppConstants.DEFAULT_ORDER_BY, required = false) String orderBy,
+            @RequestParam(value = "direction", defaultValue = AppConstants.DEFAULT_DIRECTION, required = false) String direction
+    ) {
         return productsService.getAllProducts(page, linesPerPage, orderBy, direction);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProductById(@PathVariable(name = "id") long productId){
+    public ResponseEntity<String> deleteProductById(@PathVariable(name = "id") long productId) {
         productsService.deleteProductById(productId);
         return new ResponseEntity<>("Product deleted successfully", HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     @PutMapping("/{id}")
-    public ResponseEntity<ProductsDto> updateProduct(@RequestBody ProductsDto productsDto, @PathVariable(name = "id") long productId){
+    public ResponseEntity<ProductsDto> updateProduct(@RequestBody ProductsDto productsDto, @PathVariable(name = "id") long productId) {
         ProductsDto productResponse = productsService.updateProduct(productsDto, productId);
         return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }

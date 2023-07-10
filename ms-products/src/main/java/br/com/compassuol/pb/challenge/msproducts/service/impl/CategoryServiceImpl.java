@@ -72,7 +72,8 @@ public class CategoryServiceImpl implements CategoryService {
 
         categoryRepository.delete(category);
     }
-    private CategoryDto mapToDTO(Category category){
+
+    private CategoryDto mapToDTO(Category category) {
         CategoryDto categoryDto = new CategoryDto();
 
         categoryDto.setCategoryId(category.getCategoryId());
@@ -82,7 +83,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDto;
     }
 
-    private Category mapToEntity(CategoryDto categoryDto){
+    private Category mapToEntity(CategoryDto categoryDto) {
         Category category = new Category();
 
         category.setName(categoryDto.getName());

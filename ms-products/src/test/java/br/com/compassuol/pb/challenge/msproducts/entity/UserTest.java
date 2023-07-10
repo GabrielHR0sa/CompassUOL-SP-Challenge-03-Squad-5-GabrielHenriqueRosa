@@ -56,7 +56,7 @@ class UserTest {
         User user = new User();
         Long newId = 1L;
         user.setId(newId);
-        assertEquals(1,user.getId());
+        assertEquals(1, user.getId());
     }
 
     @Test

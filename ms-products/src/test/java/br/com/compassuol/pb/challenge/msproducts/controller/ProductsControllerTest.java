@@ -29,7 +29,7 @@ class ProductsControllerTest {
     private ProductsDto productsDto;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         productsDto = new ProductsDto(1L,
                 new Date(),
                 "Teste",
@@ -50,13 +50,13 @@ class ProductsControllerTest {
     void getProductById() {
         when(productsService.getProductById(1L)).thenReturn(responseProduct);
         var response = assertDoesNotThrow(() -> productsController.getProductById(1L));
-        assertEquals(productsController.getProductById(1L),response);
+        assertEquals(productsController.getProductById(1L), response);
     }
 
     @Test
     void getAllProducts() {
-        var response = assertDoesNotThrow(() -> productsController.getAllProducts(0,5,"name", "ASC"));
-        assertEquals(productsController.getAllProducts(0,5,"name", "ASC"), response);
+        var response = assertDoesNotThrow(() -> productsController.getAllProducts(0, 5, "name", "ASC"));
+        assertEquals(productsController.getAllProducts(0, 5, "name", "ASC"), response);
     }
 
     @Test

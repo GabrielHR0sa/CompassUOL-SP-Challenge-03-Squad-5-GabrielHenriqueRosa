@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
-        this.rabbitTemplate =  rabbitTemplate;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
@@ -67,11 +67,11 @@ public class UserServiceImpl implements UserService {
     public String register(RegisterDto registerDto) {
 
 
-        if(userRepository.existsByFirstName(registerDto.getFirstName())){
+        if (userRepository.existsByFirstName(registerDto.getFirstName())) {
             throw new ApplicationException(HttpStatus.BAD_REQUEST, "Username is already exists!.");
         }
 
-        if(userRepository.existsByEmail(registerDto.getEmail())){
+        if (userRepository.existsByEmail(registerDto.getEmail())) {
             throw new ApplicationException(HttpStatus.BAD_REQUEST, "Email is already exists!.");
         }
 
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 
         Set<Role> roles = new HashSet<>();
-        for (Role role : registerDto.getRoles()){
+        for (Role role : registerDto.getRoles()) {
             Long roleId = role.getId();
             Role getRole = roleRepository.findById(roleId)
                     .orElseThrow(() -> new ResourceNotFoundException("Product", "id", roleId));
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
         return mapToDTO(updatedUser);
     }
 
-    private RegisterDto mapToDTO(User user){
+    private RegisterDto mapToDTO(User user) {
         RegisterDto registerDto = new RegisterDto();
 
         registerDto.setId(user.getId());

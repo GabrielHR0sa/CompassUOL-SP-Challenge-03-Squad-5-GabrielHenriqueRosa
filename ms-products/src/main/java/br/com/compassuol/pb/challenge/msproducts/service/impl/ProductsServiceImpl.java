@@ -41,15 +41,15 @@ public class ProductsServiceImpl implements ProductsService {
         products.setImgURL(productsDto.getImgURL());
         products.setPrice(productsDto.getPrice());
 
-       List<Category> categories = new ArrayList<>();
-       for(Category category : productsDto.getCategories()){
-           Long getId = category.getCategoryId();
-           Category getCategory = categoryRepository.findById(getId)
-                   .orElseThrow(() -> new ResourceNotFoundException("Category", "id", getId));
-           categories.add(getCategory);
-           products.setCategories(categories);
-       }
-       productsRepository.save(products);
+        List<Category> categories = new ArrayList<>();
+        for (Category category : productsDto.getCategories()) {
+            Long getId = category.getCategoryId();
+            Category getCategory = categoryRepository.findById(getId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Category", "id", getId));
+            categories.add(getCategory);
+            products.setCategories(categories);
+        }
+        productsRepository.save(products);
         return "Product created successfully";
     }
 
@@ -65,7 +65,7 @@ public class ProductsServiceImpl implements ProductsService {
         Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(orderBy).ascending()
                 : Sort.by(orderBy).descending();
 
-        Pageable pageable = PageRequest.of(page, linesPerPage,sort);
+        Pageable pageable = PageRequest.of(page, linesPerPage, sort);
 
         Page<Products> products = productsRepository.findAll(pageable);
 
@@ -104,7 +104,7 @@ public class ProductsServiceImpl implements ProductsService {
         return mapToDTO(updatedProduct);
     }
 
-    private ProductsDto mapToDTO(Products products){
+    private ProductsDto mapToDTO(Products products) {
         ProductsDto productsDto = new ProductsDto();
 
         productsDto.setProductId(products.getProductId());

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -31,16 +32,11 @@ class UserControllerTest {
     private LoginDto loginDto;
 
     @BeforeEach
-    void setup(){
-        user = new User(1L, "Teste", "Teste", "teste@gmail.com","teste", new HashSet<>());
+    void setup() {
+        user = new User(1L, "Teste", "Teste", "teste@gmail.com", "teste", new HashSet<>());
         responseUser = userService.getUserById(1L);
     }
 
-//    @Test
-//    void login() {
-//        var response = assertDoesNotThrow(() -> userController.login(loginDto));
-//        assertEquals(userController.login(loginDto), response);
-//    }
 
     @Test
     void register() {
@@ -57,7 +53,7 @@ class UserControllerTest {
 
     @Test
     void updateUser() {
-        var response = assertDoesNotThrow(() -> userController.updateUser(responseUser,1L));
-        assertEquals(userController.updateUser(responseUser,1L), response);
+        var response = assertDoesNotThrow(() -> userController.updateUser(responseUser, 1L));
+        assertEquals(userController.updateUser(responseUser, 1L), response);
     }
 }

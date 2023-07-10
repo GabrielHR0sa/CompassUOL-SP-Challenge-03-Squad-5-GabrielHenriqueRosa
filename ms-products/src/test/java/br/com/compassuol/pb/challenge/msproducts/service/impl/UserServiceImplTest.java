@@ -51,7 +51,7 @@ class UserServiceImplTest {
     private RegisterDto registerDto;
 
     @InjectMocks
-    private UserService userService = new UserServiceImpl(authenticationManager, userRepository, roleRepository, passwordEncoder, jwtTokenProvider,rabbitTemplate);
+    private UserService userService = new UserServiceImpl(authenticationManager, userRepository, roleRepository, passwordEncoder, jwtTokenProvider, rabbitTemplate);
 
 //    @Test
 //    void login() {
@@ -74,7 +74,7 @@ class UserServiceImplTest {
     @Test
     void getUserById() {
 
-        User user = new User(1L, "Teste", "Teste", "teste@gmail.com","teste", new HashSet<>());
+        User user = new User(1L, "Teste", "Teste", "teste@gmail.com", "teste", new HashSet<>());
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         RegisterDto foundUser = userService.getUserById(1L);
         assertThat(foundUser).isNotNull();

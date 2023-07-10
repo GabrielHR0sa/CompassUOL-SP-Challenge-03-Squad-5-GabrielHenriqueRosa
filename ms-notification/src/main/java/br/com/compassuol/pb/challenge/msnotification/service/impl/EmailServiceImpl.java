@@ -1,5 +1,6 @@
 package br.com.compassuol.pb.challenge.msnotification.service.impl;
 
+        import br.com.compassuol.pb.challenge.msnotification.dto.EmailDto;
         import br.com.compassuol.pb.challenge.msnotification.enums.EmailStatus;
         import br.com.compassuol.pb.challenge.msnotification.entity.Email;
         import br.com.compassuol.pb.challenge.msnotification.repository.EmailRepository;
@@ -53,10 +54,3 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 }
-
-//    public ResponseEntity<Email> sendEmail(@RequestBody @Valid EmailDto emailDto){
-//        Email email = new Email();
-//        BeanUtils.copyProperties(emailDto, email);
-//        emailService.sendEmail(email);
-//        return new ResponseEntity<>(email, HttpStatus.CREATED);
-//    }
