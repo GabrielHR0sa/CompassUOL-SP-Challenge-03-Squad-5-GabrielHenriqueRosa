@@ -1,5 +1,5 @@
 INSERT INTO users(id, email, first_name, last_name, password)
-VALUES (1, 'operator@gmail.com', 'Gabriel', 'Rosa', '$2a$10$eUr7IPl2bWVh9eK1wq358ONgz5HrguxYf/XUQedZLDcMXW5e273cW');
+VALUES (1, 'operator@gmail.com', 'operator', 'operator', '$2a$10$eUr7IPl2bWVh9eK1wq358ONgz5HrguxYf/XUQedZLDcMXW5e273cW');
 
 INSERT INTO users(id, email, first_name, last_name, password)
 VALUES (2, 'admin@gmail.com', 'admin', 'admin', '$2a$10$a0R.lrF//bJlt/b817j60OxlX8COwYw.Hs22LpKdUGD5wNJqN.VAi');
